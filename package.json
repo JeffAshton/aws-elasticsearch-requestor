@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Makes signed requests to AWS elasticsearch.",
   "main": "src/index.js",
+  "bin": {
+    "aws-elasticsearch-requestor": "./bin/aws-elasticsearch-requestor"
+  },
   "scripts": {
     "package": "package.sh"
   },
