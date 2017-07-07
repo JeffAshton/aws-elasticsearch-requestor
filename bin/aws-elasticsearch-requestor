@@ -36,9 +36,16 @@ if( !elasticsearchUrl ) {
 	return showUsage( 'elasticsearchUrl not specified' );
 }
 
-const bodyJson = null;
+let bodyBuffer = null;
 
-return requestor( awsRegion, httpMethod, elasticsearchUrl, bodyJson )
+const bodyPath = process.argv[ 4 ];
+if( bodyPath ) {
+
+	const bodyJson = JSON.stringify( require( bodyPath ) );
+	bodyBuffer = new Buffer( bodyJson, 'utf8' );
+}
+
+return requestor( awsRegion, httpMethod, elasticsearchUrl, bodyBuffer )
 	.then( result => {
 		console.info( JSON.stringify( result, null, 2 ) );
 		process.exit( 0 );

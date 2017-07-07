@@ -26,6 +26,10 @@ function createElasticSearchClient(
 		}
 		signingReq.headers.Host = esUrlInfo.hostname;
 
+		if( Buffer.isBuffer( req.body ) ) {
+			signingReq.body = req.body;
+		}
+
 		const signer = new AWS.Signers.V4( signingReq, 'es' );
 		signer.addAuthorization( awsCredentials, new Date() );
 
@@ -64,7 +68,7 @@ function getAwsCredentialsProviderAsync() {
 	} );
 }
 
-module.exports = function( awsRegion, httpMethod, elasticsearchUrl, bodyJson ) {
+module.exports = function( awsRegion, httpMethod, elasticsearchUrl, bodyBuffer ) {
 
 	return getAwsCredentialsProviderAsync()
 		.then( awsCredentials => {
@@ -77,7 +81,11 @@ module.exports = function( awsRegion, httpMethod, elasticsearchUrl, bodyJson ) {
 			return esClient( {
 					method: httpMethod,
 					url: elasticsearchUrl,
-					json: bodyJson || true
+					body: bodyBuffer,
+					headers: {
+						'accept': 'application/json',
+						'content-type': 'application/json'
+					}
 				} );
 		} );
 };
