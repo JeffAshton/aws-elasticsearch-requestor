@@ -49,11 +49,24 @@ if( bodyPath ) {
 
 return requestor( awsRegion, httpMethod, elasticsearchUrl, bodyBuffer )
 	.then( result => {
-		console.info( JSON.stringify( result, null, 2 ) );
+		console.info( result );
 		process.exit( 0 );
 	} )
 	.catch( err => {
-		const errOutput = err.response || err;
+		let errOutput = err;
+
+		const response = err.response;
+		if( response ) {
+
+			if( response.headers && response.headers[ 'content-type' ] == 'application/json' ) {
+				if( _.isString( response.body ) ) {
+					response.body = JSON.parse( response.body );
+				}
+			}
+
+			errOutput = response;
+		}
+
 		console.error( JSON.stringify( errOutput, null, 2 ) );
 		process.exit( 100 );
 	} );
