@@ -43,9 +43,7 @@ let bodyBuffer = null;
 
 const bodyPath = process.argv[ 4 ];
 if( bodyPath ) {
-
-	const bodyJson = fs.readFileSync( bodyPath );
-	bodyBuffer = new Buffer( bodyJson, 'utf8' );
+	bodyBuffer = fs.readFileSync( bodyPath );
 }
 
 return requestor( awsRegion, httpMethod, elasticsearchUrl, bodyBuffer )
