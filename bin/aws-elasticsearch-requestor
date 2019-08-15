@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const _ = require( 'lodash' );
+const fs = require( 'fs' );
 const requestor = require( '../src/index.js' );
 
 const awsRegion = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION;
@@ -43,7 +44,7 @@ let bodyBuffer = null;
 const bodyPath = process.argv[ 4 ];
 if( bodyPath ) {
 
-	const bodyJson = JSON.stringify( require( bodyPath ) );
+	const bodyJson = fs.readFileSync( bodyPath );
 	bodyBuffer = new Buffer( bodyJson, 'utf8' );
 }
 
