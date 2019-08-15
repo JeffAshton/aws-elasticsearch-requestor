@@ -1,6 +1,6 @@
 {
   "name": "aws-elasticsearch-requestor",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Makes signed requests to AWS elasticsearch.",
   "main": "src/index.js",
   "bin": {
@@ -12,10 +12,10 @@
   "author": "Jeff Ashton",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.48.0",
-    "bluebird": "^3.5.0",
-    "lodash": "^4.17.4",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.0"
+    "aws-sdk": "^2.510.0",
+    "bluebird": "^3.5.5",
+    "lodash": "^4.17.15",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   }
 }
